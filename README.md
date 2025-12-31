@@ -62,7 +62,7 @@ Before you begin, ensure you have the following installed:
    ```
 
 4. **Open your browser**
-   Navigate to [https://ronisarkar.vercel.app](https://ronisarkar.vercel.app) to see the portfolio.
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the portfolio.
 
 
 
