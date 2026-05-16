@@ -37,18 +37,23 @@ export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const sectionRefs: Record<
-    SectionKeys,
-    React.MutableRefObject<HTMLElement | null>
-  > = {
-    home: useRef<HTMLElement | null>(null),
-    experience: useRef<HTMLElement | null>(null),
-    skills: useRef<HTMLElement | null>(null),
-    projects: useRef<HTMLElement | null>(null),
-    blog: useRef<HTMLElement | null>(null),
-    education: useRef<HTMLElement | null>(null),
-    contact: useRef<HTMLElement | null>(null),
-  };
+  const homeRef = useRef<HTMLElement | null>(null);
+  const experienceRef = useRef<HTMLElement | null>(null);
+  const skillsRef = useRef<HTMLElement | null>(null);
+  const projectsRef = useRef<HTMLElement | null>(null);
+  const blogRef = useRef<HTMLElement | null>(null);
+  const educationRef = useRef<HTMLElement | null>(null);
+  const contactRef = useRef<HTMLElement | null>(null);
+
+  const sectionRefs = useRef<Record<SectionKeys, React.MutableRefObject<HTMLElement | null>>>({
+    home: homeRef,
+    experience: experienceRef,
+    skills: skillsRef,
+    projects: projectsRef,
+    blog: blogRef,
+    education: educationRef,
+    contact: contactRef,
+  });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -68,15 +73,15 @@ export default function Portfolio() {
       { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" }
     );
 
-    Object.values(sectionRefs).forEach((ref) => {
+    Object.values(sectionRefs.current).forEach((ref) => {
       if (ref.current) observer.observe(ref.current);
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [sectionRefs]);
 
   const scrollToSection = (section: SectionKeys) => {
-    const ref = sectionRefs[section].current;
+    const ref = sectionRefs.current[section].current;
     if (ref) {
       ref.scrollIntoView({ behavior: "smooth" });
       setIsMenuOpen(false);
@@ -112,7 +117,7 @@ export default function Portfolio() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-1">
-              {(Object.keys(sectionRefs) as SectionKeys[]).map((section, i) => (
+              {(Object.keys(sectionRefs.current) as SectionKeys[]).map((section, i) => (
                 <motion.button
                   key={section}
                   initial={{ opacity: 0, y: -10 }}
@@ -150,7 +155,7 @@ export default function Portfolio() {
               className="md:hidden border-t border-white/[0.06] bg-[#050816]/95 backdrop-blur-xl"
             >
               <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
-                {(Object.keys(sectionRefs) as SectionKeys[]).map((section) => (
+                {(Object.keys(sectionRefs.current) as SectionKeys[]).map((section) => (
                   <button
                     key={section}
                     onClick={() => scrollToSection(section)}
@@ -171,31 +176,31 @@ export default function Portfolio() {
 
       {/* Main content */}
       <main className="max-w-6xl mx-auto px-6">
-        <section id="home" ref={sectionRefs.home} className="pt-20">
+        <section id="home" ref={sectionRefs.current.home} className="pt-20">
           <HeroView />
         </section>
 
-        <section id="experience" ref={sectionRefs.experience} className="py-24">
+        <section id="experience" ref={sectionRefs.current.experience} className="py-24">
           <SectionHeader title="Experience" subtitle="My professional journey" />
           <ExperienceView />
         </section>
 
-        <section id="skills" ref={sectionRefs.skills} className="py-24">
+        <section id="skills" ref={sectionRefs.current.skills} className="py-24">
           <SectionHeader title="Skills" subtitle="Technologies I work with" />
           <SkillsView />
         </section>
 
-        <section id="projects" ref={sectionRefs.projects} className="py-24">
+        <section id="projects" ref={sectionRefs.current.projects} className="py-24">
           <SectionHeader title="Projects" subtitle="Things I've built" />
           <ProjectsView />
         </section>
 
-        <section id="blog" ref={sectionRefs.blog} className="py-24">
+        <section id="blog" ref={sectionRefs.current.blog} className="py-24">
           <SectionHeader title="Blog" subtitle="Thoughts on tech & engineering" />
           <BlogView />
         </section>
 
-        <section id="education" ref={sectionRefs.education} className="py-24">
+        <section id="education" ref={sectionRefs.current.education} className="py-24">
           <SectionHeader title="Education & Awards" subtitle="Academic background & achievements" />
           <div className="space-y-8">
             <EducationView />
@@ -203,7 +208,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="contact" ref={sectionRefs.contact} className="py-24">
+        <section id="contact" ref={sectionRefs.current.contact} className="py-24">
           <SectionHeader title="Get In Touch" subtitle="Let's work together" />
           <ContactMeView />
         </section>
