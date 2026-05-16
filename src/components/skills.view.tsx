@@ -1,114 +1,160 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
 
-const skills = [
-  { name: "Typescript", size: 32, weight: 400 },
-  { name: "Node.JS", size: 16, weight: 400 },
-  { name: "C#", size: 25, weight: 400 },
-  { name: "CSS", size: 18, weight: 400 },
-  { name: "HTML", size: 18, weight: 400 },
-  { name: "Redux", size: 18, weight: 400 },
-  { name: "NextJS", size: 16, weight: 400 },
-  { name: "Express.JS", size: 16, weight: 400 },
-  { name: "MySQL", size: 16, weight: 400 },
-  { name: "PostgreSQL", size: 14, weight: 400 },
-  { name: "MongoDB", size: 14, weight: 400 },
-  { name: "Git", size: 14, weight: 400 },
-  { name: "REST API", size: 14, weight: 400 },
-  { name: "Javascript", size: 28, weight: 400 },
-  { name: "AzureDevOps", size: 18, weight: 400 },
-  { name: "Testing", size: 15, weight: 400 },
-  { name: "GitHub", size: 25, weight: 400 },
-  { name: "ASP.NET", size: 14, weight: 400 },
-  { name: "Java", size: 26, weight: 400 },
-  { name: "UI/UX", size: 14, weight: 400 },
-  { name: "DSA", size: 20, weight: 400 },
+const skillCategories = [
+  {
+    category: "Languages",
+    color: "cyan",
+    skills: ["JavaScript", "TypeScript", "SQL", "Java", "C#", "CSS"],
+  },
+  {
+    category: "Backend & APIs",
+    color: "violet",
+    skills: [
+      "NestJS",
+      "Node.js",
+      "ExpressJS",
+      "RESTful API",
+      "GraphQL",
+      "WebSocket",
+      "BullMQ",
+      "Redis",
+      "Flask",
+    ],
+  },
+  {
+    category: "Frontend",
+    color: "blue",
+    skills: ["ReactJS", "Next.js", "Redux", "TailwindCSS", "Firebase"],
+  },
+  {
+    category: "Databases",
+    color: "emerald",
+    skills: ["PostgreSQL", "MongoDB", "MySQL", "Prisma ORM"],
+  },
+  {
+    category: "Blockchain & Web3",
+    color: "orange",
+    skills: [
+      "Ethereum",
+      "Polygon",
+      "ERC-20 Smart Contracts",
+      "Wallet Integration",
+      "Solidity",
+      "DeFi",
+    ],
+  },
+  {
+    category: "Payments & AI",
+    color: "pink",
+    skills: [
+      "Stripe",
+      "Fin.com",
+      "Transfi",
+      "OpenAI API",
+      "Prompt Engineering",
+      "Cursor",
+      "Claude",
+    ],
+  },
+  {
+    category: "Tools & DevOps",
+    color: "amber",
+    skills: [
+      "Git",
+      "GitHub",
+      "GitHub Actions",
+      "CI/CD",
+      "Azure DevOps",
+      "Azure Cloud",
+      "Jira",
+      "Postman",
+      "Swagger",
+    ],
+  },
 ];
 
-const buttonSkills = [
-  "ReactJS",
-  "Typescript",
-  "C#",
-  "MySQL",
-  "GitHub",
-  "Javascript",
-  "HTML",
-  "CSS",
-  "Express.JS",
-  "DotNet",
-  "AzureDevOps",
-  "Testing",
-  "ASP.NETWebAPI",
-  "RESTAPI",
-  "Postman",
-  "GitLab",
-  "Bootstrap",
-  "UI/UX",
-  "NextJS",
-  "PrismaORM",
-  "PostgreSQL",
-  "Tailwindcss",
-  "JavaScript",
-  "Node.JS",
-  "AntDesign",
-  "MongoDB",
-  "Redux",
-];
+const colorMap: Record<string, { bg: string; border: string; text: string; dot: string }> = {
+  cyan: {
+    bg: "bg-cyan-500/10 hover:bg-cyan-500/15",
+    border: "border-cyan-500/20",
+    text: "text-cyan-400",
+    dot: "bg-cyan-400",
+  },
+  violet: {
+    bg: "bg-violet-500/10 hover:bg-violet-500/15",
+    border: "border-violet-500/20",
+    text: "text-violet-400",
+    dot: "bg-violet-400",
+  },
+  blue: {
+    bg: "bg-blue-500/10 hover:bg-blue-500/15",
+    border: "border-blue-500/20",
+    text: "text-blue-400",
+    dot: "bg-blue-400",
+  },
+  emerald: {
+    bg: "bg-emerald-500/10 hover:bg-emerald-500/15",
+    border: "border-emerald-500/20",
+    text: "text-emerald-400",
+    dot: "bg-emerald-400",
+  },
+  orange: {
+    bg: "bg-orange-500/10 hover:bg-orange-500/15",
+    border: "border-orange-500/20",
+    text: "text-orange-400",
+    dot: "bg-orange-400",
+  },
+  pink: {
+    bg: "bg-pink-500/10 hover:bg-pink-500/15",
+    border: "border-pink-500/20",
+    text: "text-pink-400",
+    dot: "bg-pink-400",
+  },
+  amber: {
+    bg: "bg-amber-500/10 hover:bg-amber-500/15",
+    border: "border-amber-500/20",
+    text: "text-amber-400",
+    dot: "bg-amber-400",
+  },
+};
 
-export default function SkillsCloud() {
+const SkillsView = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="rounded-lg shadow-lg w-full max-w-4xl">
-        <div className="relative w-full h-80 mb-8">
-          <div
-            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
-            style={{
-              fontSize: "64px",
-              fontWeight: 300,
-              color: "rgb(220, 220, 220)",
-              textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-            }}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {skillCategories.map((cat, index) => {
+        const colors = colorMap[cat.color];
+        return (
+          <motion.div
+            key={cat.category}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.07 }}
+            className={`p-5 rounded-2xl border ${colors.border} bg-white/[0.02] hover:bg-white/[0.03] transition-all duration-300`}
           >
-            ReactJS
-          </div>
-
-          {skills.map((skill, index) => {
-            const angle = (index / skills.length) * 2 * Math.PI;
-            const baseRadius = 100;
-            const randomOffset = Math.random() * 80 - 15;
-            const radius = baseRadius + randomOffset;
-            const x = 50 + (radius * Math.cos(angle)) / 4;
-            const y = 50 + (radius * Math.sin(angle)) / 4;
-            return (
-              <div
-                key={skill.name}
-                className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  fontSize: `${Math.max(skill.size, 12)}px`,
-                  fontWeight: skill.weight,
-                  color: `rgb(${180 + Math.random() * 75}, ${
-                    180 + Math.random() * 75
-                  }, ${180 + Math.random() * 75})`,
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
-                }}
-              >
-                {skill.name}
-              </div>
-            );
-          })}
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {buttonSkills.map((skill) => (
-            <button
-              key={skill}
-              className="px-2 py-1 bg-gray-200 text-gray-800 rounded text-xs hover:bg-gray-300 transition-colors"
-            >
-              {skill}
-            </button>
-          ))}
-        </div>
-      </div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className={`w-2 h-2 rounded-full ${colors.dot}`} />
+              <h3 className={`font-semibold text-sm uppercase tracking-wider ${colors.text}`}>
+                {cat.category}
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {cat.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-lg border ${colors.border} ${colors.bg} text-slate-300 hover:text-white transition-all duration-200 cursor-default`}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
-}
+};
+
+export default SkillsView;
