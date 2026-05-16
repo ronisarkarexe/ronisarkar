@@ -14,8 +14,28 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Roni Sarkar",
-  description: "Roni Sarkar",
+  title: "Roni Sarkar — Software Engineer",
+  description:
+    "Software Engineer specializing in backend systems, blockchain/Web3, and AI-powered applications. Currently building at Nagorik Technologies Ltd.",
+  keywords: [
+    "Roni Sarkar",
+    "Software Engineer",
+    "Full Stack Developer",
+    "NestJS",
+    "Web3",
+    "Blockchain",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Dhaka",
+  ],
+  authors: [{ name: "Roni Sarkar" }],
+  openGraph: {
+    title: "Roni Sarkar — Software Engineer",
+    description:
+      "Software Engineer specializing in backend systems, blockchain/Web3, and AI-powered applications.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -24,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
