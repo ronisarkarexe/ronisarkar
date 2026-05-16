@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Menu } from "lucide-react";
+import { X, Menu, ArrowUp } from "lucide-react";
 import HeroView from "@/components/hero_view";
 import ExperienceView from "@/components/experiences.view";
 import SkillsView from "@/components/skills.view";
@@ -210,6 +210,23 @@ export default function Portfolio() {
       </main>
 
       <FooterView />
+
+      {/* Scroll to top button */}
+      <AnimatePresence>
+        {scrolled && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => scrollToSection("home")}
+            className="fixed bottom-8 right-8 z-50 p-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 hover:border-cyan-500/50 text-cyan-400 hover:text-cyan-300 shadow-lg shadow-cyan-500/10 hover:shadow-cyan-500/20 backdrop-blur-sm transition-colors duration-200"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -77,7 +77,7 @@ const HeroView = () => {
           className="flex justify-center items-center gap-1.5 text-slate-500 text-sm mb-8"
         >
           <MapPin className="w-3.5 h-3.5" />
-          Uttara, Dhaka, Bangladesh
+          Dhaka, Bangladesh
         </motion.div>
 
         {/* Description */}
