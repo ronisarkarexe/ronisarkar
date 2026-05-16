@@ -58,10 +58,10 @@ const FooterView = () => {
 
         <div className="mt-8 pt-6 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-slate-700">
           <p>© 2026 Roni Sarkar. All rights reserved.</p>
-          <p>
+          {/* <p>
             Built with{" "}
             <span className="text-slate-600">Next.js · TailwindCSS · Framer Motion</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>
